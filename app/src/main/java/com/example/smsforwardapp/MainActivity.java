@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -29,13 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonForward(View view){
         Cursor cursor = getContentResolver().query(Uri.parse("content://sms"),null, null, null, null);
+        cursor.moveToFirst();
 
         cursor.moveToFirst();
 
         while (cursor != null){
             String stringMessage = cursor.getString(12);
 
-            if(stringMessage.contains("programmer")){
+            if(stringMessage.contains("AC-Challenge")){
                 SmsManager smsManagerSend = SmsManager.getDefault();
                 smsManagerSend.sendTextMessage(stringNumber, null, stringMessage, null, null);
 
@@ -47,4 +49,5 @@ public class MainActivity extends AppCompatActivity {
             cursor.moveToNext();
         }
     }
+
 }
