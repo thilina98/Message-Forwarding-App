@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smsforwardapp">
 
-<!--    <uses-permission android:name="android.permission.READ_SMS"/>-->
-<!--    <uses-permission android:name="android.permission.SEND_SMS"/>-->
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
 
     <application
@@ -23,10 +23,17 @@
             </intent-filter>
         </activity>
 
+<!--        <receiver android:name=".MySmsReceiver"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+
         <receiver android:name=".MySmsReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 

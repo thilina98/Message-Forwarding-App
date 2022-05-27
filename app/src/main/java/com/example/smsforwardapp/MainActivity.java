@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,26 +13,28 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
-    private String stringNumber = "+94711261361";
+    private String stringNumber = "+94710764814";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS}, PackageManager.PERMISSION_GRANTED);
 
         textView = findViewById(R.id.textView);
     }
 
     public void buttonForward(View view){
-        Cursor cursor = getContentResolver().query(Uri.parse("content://sms"),null, null, null, null);
-        cursor.moveToFirst();
 
+        Toast.makeText(this, "Received",Toast.LENGTH_SHORT).show();
+
+        Cursor cursor = getContentResolver().query(Uri.parse("content://sms/inbox"),null, null, null, null);
         cursor.moveToFirst();
 
         while (cursor != null){
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 smsManagerSend.sendTextMessage(stringNumber, null, stringMessage, null, null);
 
                 textView.setText("Message Sent");
-//                break;
+                break;
             }
             textView.setText("message NOT found");
 
